@@ -1,0 +1,72 @@
+{
+  "headline": [
+    {
+      "ref": "health_minister"
+    },
+    {
+      "grammar": "past_tense"
+    },
+    {
+      "ref": "announce"
+    },
+    {
+      "grammar": "new"
+    },
+    {
+      "ref": "fund"
+    },
+    {
+      "ref": "nhs"
+    }
+  ],
+  "sentences": [
+    [
+      {
+        "name": "Wes Streeting",
+        "kind": "person"
+      },
+      {
+        "ref": "say"
+      },
+      {
+        "grammar": "quote_open"
+      },
+      {
+        "ref": "money"
+      },
+      {
+        "grammar": "direction"
+      },
+      {
+        "ref": "hospital_waiting_lists"
+      },
+      {
+        "grammar": "decrease"
+      },
+      {
+        "grammar": "quote_close"
+      }
+    ],
+    [
+      {
+        "ref": "union"
+      },
+      {
+        "ref": "warn"
+      },
+      {
+        "grammar": "uncertainty"
+      },
+      {
+        "ref": "carers",
+        "plural": true
+      },
+      {
+        "ref": "money"
+      },
+      {
+        "grammar": "comparison_less"
+      }
+    ]
+  ]
+}
