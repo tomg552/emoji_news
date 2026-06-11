@@ -1,0 +1,980 @@
+{
+  "meta": {
+    "name": "Emoji News Script Ontology",
+    "version": "0.2.0",
+    "description": "An ontology mapping news concepts to emoji glyphs, with grammar markers, compounds, actions and modifiers for translating news articles into an emoji script.",
+    "conventions": {
+      "numbers": "Arabic numerals are passed through verbatim and prefixed with the quantity marker, e.g. 🔢250",
+      "proper_names": "Unknown proper nouns are wrapped in the proper_name_wrapper and spelt out or replaced with a registered compound",
+      "plurality": "Plural is marked with the plural marker after the concept glyph, e.g. 🏫🔁 = schools",
+      "tense": "Tense markers precede the action glyph; absence of a marker implies present tense",
+      "compound_order": "Compounds read left to right from the general to the specific, e.g. 🧩🏛️👔🏥🧩 = the health minister of the government"
+    }
+  },
+  "grammar": {
+    "compound_open": "🧩",
+    "compound_close": "🧩",
+    "proper_name_wrapper": "🏷️",
+    "person_name_wrapper": "👤🏷️",
+    "place_name_wrapper": "📍🏷️",
+    "organisation_name_wrapper": "🏢🏷️",
+    "direction": "➡️",
+    "cause": "🔗",
+    "result": "⤵️",
+    "increase": "📈",
+    "decrease": "📉",
+    "uncertainty": "❓",
+    "question": "❔",
+    "warning": "⚠️",
+    "controversy": "😠🗣️",
+    "breaking_news": "🚨",
+    "new": "🆕",
+    "negation": "🚫",
+    "plural": "🔁",
+    "past_tense": "⏪",
+    "future_tense": "⏩",
+    "ongoing": "🔄",
+    "beginning": "🎬",
+    "ending": "🏁",
+    "quote_open": "🗨️",
+    "quote_close": "🗨️",
+    "according_to": "🗣️➡️",
+    "approximately": "〰️",
+    "quantity_marker": "🔢",
+    "comparison_more": "➕",
+    "comparison_less": "➖",
+    "time_marker": "🕐",
+    "location_marker": "📍",
+    "alleged_unconfirmed": "❓🗨️",
+    "official_confirmed": "✅📜"
+  },
+  "concepts": {
+    "government": {
+      "emoji": "🏛️",
+      "type": "institution",
+      "aliases": ["government", "state", "administration", "ministers", "whitehall"]
+    },
+    "minister": {
+      "emoji": "👔",
+      "type": "role",
+      "aliases": ["minister", "secretary", "official", "secretary of state"]
+    },
+    "leader": {
+      "emoji": "👤⭐",
+      "type": "role",
+      "aliases": ["leader", "head", "chief", "boss", "president"]
+    },
+    "monarch": {
+      "emoji": "👑",
+      "type": "role",
+      "aliases": ["king", "queen", "monarch", "royal", "crown"]
+    },
+    "health": {
+      "emoji": "🏥",
+      "type": "domain",
+      "aliases": ["health", "nhs", "hospital", "medical", "healthcare"]
+    },
+    "social_care": {
+      "emoji": "🤲🏠",
+      "type": "domain",
+      "aliases": ["social care", "care", "homecare", "domiciliary care", "care sector"]
+    },
+    "education": {
+      "emoji": "📖",
+      "type": "domain",
+      "aliases": ["education", "schools", "teaching", "students", "curriculum"]
+    },
+    "money": {
+      "emoji": "💷",
+      "type": "resource",
+      "aliases": ["money", "funding", "budget", "spending", "investment", "cash"]
+    },
+    "economy": {
+      "emoji": "💹",
+      "type": "domain",
+      "aliases": ["economy", "economic", "gdp", "growth", "markets"]
+    },
+    "inflation": {
+      "emoji": "🎈💷",
+      "type": "phenomenon",
+      "aliases": ["inflation", "prices rising", "cost of living"]
+    },
+    "tax": {
+      "emoji": "🧾",
+      "type": "resource",
+      "aliases": ["tax", "taxation", "levy", "duty", "vat", "national insurance"]
+    },
+    "employment": {
+      "emoji": "🧑‍💼",
+      "type": "domain",
+      "aliases": ["employment", "jobs", "labour market", "unemployment", "workforce"]
+    },
+    "trade": {
+      "emoji": "🚢📦",
+      "type": "domain",
+      "aliases": ["trade", "exports", "imports", "tariffs", "trade deal"]
+    },
+    "public": {
+      "emoji": "👥",
+      "type": "group",
+      "aliases": ["public", "people", "residents", "voters", "citizens", "population"]
+    },
+    "children": {
+      "emoji": "🧒",
+      "type": "group",
+      "aliases": ["children", "kids", "pupils", "young people", "minors"]
+    },
+    "elderly": {
+      "emoji": "👴",
+      "type": "group",
+      "aliases": ["elderly", "older people", "pensioners", "retirees", "over-65s"]
+    },
+    "family": {
+      "emoji": "👨‍👩‍👧",
+      "type": "group",
+      "aliases": ["family", "families", "households", "parents"]
+    },
+    "workers": {
+      "emoji": "👷",
+      "type": "group",
+      "aliases": ["workers", "staff", "employees", "workforce"]
+    },
+    "doctors": {
+      "emoji": "🩺",
+      "type": "group",
+      "aliases": ["doctors", "gps", "consultants", "physicians", "medics"]
+    },
+    "nurses": {
+      "emoji": "💉",
+      "type": "group",
+      "aliases": ["nurses", "nursing staff", "midwives"]
+    },
+    "carers": {
+      "emoji": "🤲👤",
+      "type": "group",
+      "aliases": ["carers", "care workers", "caregivers", "support workers"]
+    },
+    "teachers": {
+      "emoji": "🧑‍🏫",
+      "type": "group",
+      "aliases": ["teachers", "lecturers", "educators", "headteachers"]
+    },
+    "farmers": {
+      "emoji": "🚜",
+      "type": "group",
+      "aliases": ["farmers", "farming", "agriculture", "agricultural"]
+    },
+    "police": {
+      "emoji": "🚔",
+      "type": "institution",
+      "aliases": ["police", "officers", "force", "constabulary", "met police"]
+    },
+    "military": {
+      "emoji": "🪖",
+      "type": "institution",
+      "aliases": ["military", "army", "armed forces", "troops", "soldiers", "defence"]
+    },
+    "court": {
+      "emoji": "⚖️",
+      "type": "institution",
+      "aliases": ["court", "judge", "trial", "legal", "tribunal", "judiciary"]
+    },
+    "prison": {
+      "emoji": "🏢⛓️",
+      "type": "institution",
+      "aliases": ["prison", "jail", "custody", "detention", "sentence"]
+    },
+    "bank": {
+      "emoji": "🏦",
+      "type": "institution",
+      "aliases": ["bank", "banking", "lender", "financial institution"]
+    },
+    "company": {
+      "emoji": "🏢",
+      "type": "institution",
+      "aliases": ["company", "business", "firm", "corporation", "employer"]
+    },
+    "union": {
+      "emoji": "🧑‍🏭🤝",
+      "type": "institution",
+      "aliases": ["union", "trade union", "unison", "unite", "rcn"]
+    },
+    "media": {
+      "emoji": "📺",
+      "type": "institution",
+      "aliases": ["media", "press", "broadcaster", "journalists", "bbc"]
+    },
+    "charity": {
+      "emoji": "🎗️",
+      "type": "institution",
+      "aliases": ["charity", "charities", "ngo", "voluntary sector", "nonprofit"]
+    },
+    "school": {
+      "emoji": "🏫",
+      "type": "institution",
+      "aliases": ["school", "academy", "primary school", "secondary school"]
+    },
+    "university": {
+      "emoji": "🎓",
+      "type": "institution",
+      "aliases": ["university", "higher education", "college", "campus"]
+    },
+    "housing": {
+      "emoji": "🏘️",
+      "type": "domain",
+      "aliases": ["housing", "homes", "property", "development", "rent", "mortgages"]
+    },
+    "city": {
+      "emoji": "🌆",
+      "type": "place",
+      "aliases": ["city", "town", "urban", "local", "borough"]
+    },
+    "countryside": {
+      "emoji": "🌾",
+      "type": "place",
+      "aliases": ["countryside", "rural", "village", "farmland"]
+    },
+    "country": {
+      "emoji": "🗺️",
+      "type": "place",
+      "aliases": ["country", "nation", "national", "uk", "britain"]
+    },
+    "world": {
+      "emoji": "🌍",
+      "type": "place",
+      "aliases": ["world", "global", "international", "worldwide"]
+    },
+    "europe": {
+      "emoji": "🇪🇺",
+      "type": "place",
+      "aliases": ["europe", "eu", "european union", "brussels"]
+    },
+    "climate": {
+      "emoji": "🌍🔥",
+      "type": "domain",
+      "aliases": ["climate", "global warming", "environment", "emissions", "net zero"]
+    },
+    "energy": {
+      "emoji": "⚡",
+      "type": "domain",
+      "aliases": ["energy", "electricity", "power", "energy bills", "grid"]
+    },
+    "oil_gas": {
+      "emoji": "🛢️",
+      "type": "resource",
+      "aliases": ["oil", "gas", "fossil fuels", "petrol", "fuel"]
+    },
+    "renewables": {
+      "emoji": "🌬️☀️",
+      "type": "resource",
+      "aliases": ["renewables", "wind power", "solar", "green energy"]
+    },
+    "transport": {
+      "emoji": "🚆",
+      "type": "domain",
+      "aliases": ["transport", "rail", "trains", "public transport", "buses"]
+    },
+    "roads": {
+      "emoji": "🛣️",
+      "type": "domain",
+      "aliases": ["roads", "motorway", "traffic", "drivers", "cars"]
+    },
+    "aviation": {
+      "emoji": "✈️",
+      "type": "domain",
+      "aliases": ["aviation", "flights", "airline", "airport", "air travel"]
+    },
+    "technology": {
+      "emoji": "💻",
+      "type": "domain",
+      "aliases": ["technology", "tech", "digital", "software", "it"]
+    },
+    "ai": {
+      "emoji": "🤖",
+      "type": "domain",
+      "aliases": ["ai", "artificial intelligence", "machine learning", "chatbot", "llm"]
+    },
+    "internet": {
+      "emoji": "🌐",
+      "type": "domain",
+      "aliases": ["internet", "online", "web", "social media"]
+    },
+    "data": {
+      "emoji": "📊",
+      "type": "resource",
+      "aliases": ["data", "statistics", "figures", "records", "database"]
+    },
+    "science": {
+      "emoji": "🔬",
+      "type": "domain",
+      "aliases": ["science", "research", "study", "scientists", "trial results"]
+    },
+    "space": {
+      "emoji": "🛰️",
+      "type": "domain",
+      "aliases": ["space", "satellite", "rocket", "nasa", "orbit"]
+    },
+    "war": {
+      "emoji": "⚔️",
+      "type": "phenomenon",
+      "aliases": ["war", "conflict", "fighting", "invasion", "hostilities"]
+    },
+    "peace": {
+      "emoji": "🕊️",
+      "type": "phenomenon",
+      "aliases": ["peace", "ceasefire", "truce", "peace deal", "armistice"]
+    },
+    "weapon": {
+      "emoji": "🔫",
+      "type": "object",
+      "aliases": ["weapon", "arms", "gun", "missile", "munitions"]
+    },
+    "terrorism": {
+      "emoji": "💣😨",
+      "type": "phenomenon",
+      "aliases": ["terrorism", "terror attack", "extremism", "bomb plot"]
+    },
+    "crime": {
+      "emoji": "🦹",
+      "type": "phenomenon",
+      "aliases": ["crime", "criminal", "offence", "offending"]
+    },
+    "theft": {
+      "emoji": "🥷💰",
+      "type": "phenomenon",
+      "aliases": ["theft", "robbery", "burglary", "shoplifting", "stolen"]
+    },
+    "fraud": {
+      "emoji": "🎭💷",
+      "type": "phenomenon",
+      "aliases": ["fraud", "scam", "embezzlement", "corruption"]
+    },
+    "drugs": {
+      "emoji": "💊",
+      "type": "object",
+      "aliases": ["drugs", "narcotics", "substance", "medication"]
+    },
+    "migration": {
+      "emoji": "🧳🌍",
+      "type": "phenomenon",
+      "aliases": ["migration", "immigration", "migrants", "asylum", "refugees", "small boats"]
+    },
+    "border": {
+      "emoji": "🛂",
+      "type": "place",
+      "aliases": ["border", "borders", "customs", "frontier", "channel crossing"]
+    },
+    "election": {
+      "emoji": "🗳️",
+      "type": "event",
+      "aliases": ["election", "vote", "ballot", "polls", "by-election"]
+    },
+    "political_party": {
+      "emoji": "🎌🏛️",
+      "type": "institution",
+      "aliases": ["party", "political party", "labour", "conservatives", "tories", "lib dems"]
+    },
+    "law": {
+      "emoji": "📜",
+      "type": "object",
+      "aliases": ["law", "legislation", "bill", "act", "regulation", "rules"]
+    },
+    "policy": {
+      "emoji": "📋🏛️",
+      "type": "object",
+      "aliases": ["policy", "plan", "strategy", "proposal", "reform"]
+    },
+    "pandemic": {
+      "emoji": "🦠",
+      "type": "phenomenon",
+      "aliases": ["pandemic", "virus", "outbreak", "covid", "infection", "epidemic"]
+    },
+    "vaccine": {
+      "emoji": "💉🛡️",
+      "type": "object",
+      "aliases": ["vaccine", "vaccination", "jab", "immunisation", "booster"]
+    },
+    "mental_health": {
+      "emoji": "🧠💚",
+      "type": "domain",
+      "aliases": ["mental health", "wellbeing", "anxiety", "depression", "psychological"]
+    },
+    "disability": {
+      "emoji": "♿",
+      "type": "domain",
+      "aliases": ["disability", "disabled", "accessibility", "special needs", "send"]
+    },
+    "benefits": {
+      "emoji": "💷🤲",
+      "type": "resource",
+      "aliases": ["benefits", "welfare", "universal credit", "pip", "pension"]
+    },
+    "food": {
+      "emoji": "🍞",
+      "type": "resource",
+      "aliases": ["food", "groceries", "food prices", "food banks", "supply"]
+    },
+    "water": {
+      "emoji": "🚰",
+      "type": "resource",
+      "aliases": ["water", "water companies", "sewage", "rivers", "supply"]
+    },
+    "flood": {
+      "emoji": "🌊",
+      "type": "phenomenon",
+      "aliases": ["flood", "flooding", "floodwater", "deluge"]
+    },
+    "storm": {
+      "emoji": "⛈️",
+      "type": "phenomenon",
+      "aliases": ["storm", "gales", "hurricane", "high winds", "weather warning"]
+    },
+    "heatwave": {
+      "emoji": "🥵",
+      "type": "phenomenon",
+      "aliases": ["heatwave", "extreme heat", "record temperatures"]
+    },
+    "drought": {
+      "emoji": "🏜️",
+      "type": "phenomenon",
+      "aliases": ["drought", "water shortage", "hosepipe ban"]
+    },
+    "snow": {
+      "emoji": "❄️",
+      "type": "phenomenon",
+      "aliases": ["snow", "ice", "freezing", "cold snap", "winter weather"]
+    },
+    "earthquake": {
+      "emoji": "🫨🌍",
+      "type": "phenomenon",
+      "aliases": ["earthquake", "tremor", "seismic", "quake"]
+    },
+    "fire": {
+      "emoji": "🔥",
+      "type": "phenomenon",
+      "aliases": ["fire", "blaze", "wildfire", "arson"]
+    },
+    "accident": {
+      "emoji": "💥🚗",
+      "type": "event",
+      "aliases": ["accident", "crash", "collision", "incident", "derailment"]
+    },
+    "sport": {
+      "emoji": "⚽",
+      "type": "domain",
+      "aliases": ["sport", "football", "match", "fixture", "premier league"]
+    },
+    "olympics": {
+      "emoji": "🏅",
+      "type": "event",
+      "aliases": ["olympics", "games", "championship", "tournament", "world cup"]
+    },
+    "entertainment": {
+      "emoji": "🎬",
+      "type": "domain",
+      "aliases": ["entertainment", "film", "tv", "celebrity", "showbiz"]
+    },
+    "music": {
+      "emoji": "🎵",
+      "type": "domain",
+      "aliases": ["music", "album", "concert", "festival", "artist"]
+    },
+    "art_culture": {
+      "emoji": "🎨",
+      "type": "domain",
+      "aliases": ["art", "culture", "museum", "gallery", "heritage"]
+    },
+    "religion": {
+      "emoji": "🛐",
+      "type": "domain",
+      "aliases": ["religion", "church", "faith", "mosque", "synagogue", "temple"]
+    },
+    "person": {
+      "emoji": "👤",
+      "type": "group",
+      "aliases": ["person", "individual", "man", "woman", "someone"]
+    },
+    "victim": {
+      "emoji": "👤💔",
+      "type": "group",
+      "aliases": ["victim", "casualty", "injured party", "survivor"]
+    },
+    "suspect": {
+      "emoji": "👤❓",
+      "type": "group",
+      "aliases": ["suspect", "accused", "defendant", "alleged perpetrator"]
+    },
+    "expert": {
+      "emoji": "👤🎓",
+      "type": "group",
+      "aliases": ["expert", "analyst", "specialist", "academic", "researcher"]
+    }
+  },
+  "actions": {
+    "announce": {
+      "emoji": "📢",
+      "aliases": ["announce", "unveil", "reveal", "declare", "set out"]
+    },
+    "say": {
+      "emoji": "🗣️",
+      "aliases": ["say", "state", "tell", "comment", "claim"]
+    },
+    "deny": {
+      "emoji": "🗣️🚫",
+      "aliases": ["deny", "reject claim", "refute", "dismiss"]
+    },
+    "promise": {
+      "emoji": "🤞📜",
+      "aliases": ["promise", "pledge", "vow", "commit", "guarantee"]
+    },
+    "agree": {
+      "emoji": "✅🤝",
+      "aliases": ["agree", "approve", "back", "support", "endorse"]
+    },
+    "reject": {
+      "emoji": "❌",
+      "aliases": ["reject", "refuse", "veto", "oppose", "block"]
+    },
+    "ban": {
+      "emoji": "⛔",
+      "aliases": ["ban", "prohibit", "outlaw", "forbid", "crackdown"]
+    },
+    "vote": {
+      "emoji": "🗳️✋",
+      "aliases": ["vote", "ballot", "elect", "pass a vote"]
+    },
+    "resign": {
+      "emoji": "👋🚪",
+      "aliases": ["resign", "quit", "step down", "stand down"]
+    },
+    "appoint": {
+      "emoji": "👉👤",
+      "aliases": ["appoint", "name", "hire", "install", "promote"]
+    },
+    "sack": {
+      "emoji": "🚪➡️👤",
+      "aliases": ["sack", "fire", "dismiss", "remove from post"]
+    },
+    "meet": {
+      "emoji": "🤝",
+      "aliases": ["meet", "talks", "summit", "negotiate", "discuss"]
+    },
+    "debate": {
+      "emoji": "🗣️↔️🗣️",
+      "aliases": ["debate", "argue", "clash", "dispute", "row"]
+    },
+    "protest": {
+      "emoji": "📣✊",
+      "aliases": ["protest", "demonstrate", "march", "rally", "demonstration"]
+    },
+    "strike": {
+      "emoji": "✊🛑",
+      "aliases": ["strike", "walkout", "industrial action", "picket"]
+    },
+    "attack": {
+      "emoji": "💥",
+      "aliases": ["attack", "assault", "strike (military)", "bombard", "hit"]
+    },
+    "kill": {
+      "emoji": "💀",
+      "aliases": ["kill", "murder", "fatality", "slay", "homicide"]
+    },
+    "die": {
+      "emoji": "🪦",
+      "aliases": ["die", "death", "passed away", "dead", "deceased"]
+    },
+    "injure": {
+      "emoji": "🤕",
+      "aliases": ["injure", "wound", "hurt", "harm", "casualties"]
+    },
+    "rescue": {
+      "emoji": "🛟",
+      "aliases": ["rescue", "save", "evacuate", "recover"]
+    },
+    "arrest": {
+      "emoji": "🚔✋",
+      "aliases": ["arrest", "detain", "apprehend", "take into custody"]
+    },
+    "charge_legal": {
+      "emoji": "⚖️📜",
+      "aliases": ["charge", "prosecute", "indict", "bring charges"]
+    },
+    "convict": {
+      "emoji": "⚖️⛓️",
+      "aliases": ["convict", "find guilty", "sentence", "jail"]
+    },
+    "acquit": {
+      "emoji": "⚖️✅",
+      "aliases": ["acquit", "clear", "find not guilty", "exonerate"]
+    },
+    "investigate": {
+      "emoji": "🔍",
+      "aliases": ["investigate", "probe", "inquiry", "review", "examine"]
+    },
+    "inspect": {
+      "emoji": "🔍📋",
+      "aliases": ["inspect", "audit", "assess", "rate", "regulate"]
+    },
+    "report": {
+      "emoji": "📋📢",
+      "aliases": ["report", "publish findings", "release report", "disclose"]
+    },
+    "fund": {
+      "emoji": "💷➡️",
+      "aliases": ["fund", "invest", "allocate money", "finance", "back financially"]
+    },
+    "cut": {
+      "emoji": "✂️",
+      "aliases": ["cut", "reduce funding", "slash", "austerity", "trim"]
+    },
+    "build": {
+      "emoji": "🏗️",
+      "aliases": ["build", "construct", "develop", "expand"]
+    },
+    "close": {
+      "emoji": "🔒🚪",
+      "aliases": ["close", "shut down", "closure", "wind up"]
+    },
+    "open_launch": {
+      "emoji": "🚀",
+      "aliases": ["launch", "open", "start", "roll out", "introduce"]
+    },
+    "buy": {
+      "emoji": "🛒",
+      "aliases": ["buy", "purchase", "acquire", "takeover", "acquisition"]
+    },
+    "sell": {
+      "emoji": "🏷️💷",
+      "aliases": ["sell", "sale", "divest", "offload"]
+    },
+    "win": {
+      "emoji": "🏆",
+      "aliases": ["win", "victory", "triumph", "beat", "defeat (an opponent)"]
+    },
+    "lose": {
+      "emoji": "🏳️",
+      "aliases": ["lose", "defeat (suffered)", "loss", "beaten"]
+    },
+    "warn": {
+      "emoji": "⚠️🗣️",
+      "aliases": ["warn", "caution", "alert", "raise alarm"]
+    },
+    "apologise": {
+      "emoji": "🙇🗣️",
+      "aliases": ["apologise", "say sorry", "express regret"]
+    },
+    "demand": {
+      "emoji": "☝️🗣️",
+      "aliases": ["demand", "call for", "urge", "insist", "press for"]
+    },
+    "help": {
+      "emoji": "🤲",
+      "aliases": ["help", "support", "assist", "aid", "relief"]
+    },
+    "travel": {
+      "emoji": "🧭➡️",
+      "aliases": ["travel", "visit", "fly to", "arrive", "depart"]
+    },
+    "escape": {
+      "emoji": "🏃💨",
+      "aliases": ["escape", "flee", "abscond", "on the run"]
+    },
+    "discover": {
+      "emoji": "💡🔍",
+      "aliases": ["discover", "find", "uncover", "breakthrough", "identify"]
+    },
+    "fail": {
+      "emoji": "📉❌",
+      "aliases": ["fail", "collapse", "go bankrupt", "go under", "breakdown"]
+    },
+    "recover": {
+      "emoji": "📈💪",
+      "aliases": ["recover", "rebound", "bounce back", "improve"]
+    },
+    "delay": {
+      "emoji": "🕐⏸️",
+      "aliases": ["delay", "postpone", "push back", "defer", "stall"]
+    },
+    "cancel": {
+      "emoji": "🗓️❌",
+      "aliases": ["cancel", "scrap", "abandon", "axe", "shelve"]
+    }
+  },
+  "modifiers": {
+    "big": {
+      "emoji": "🐘",
+      "aliases": ["big", "major", "huge", "significant", "large-scale"]
+    },
+    "small": {
+      "emoji": "🐭",
+      "aliases": ["small", "minor", "modest", "limited"]
+    },
+    "fast": {
+      "emoji": "⚡💨",
+      "aliases": ["fast", "rapid", "sudden", "sharp", "immediate"]
+    },
+    "slow": {
+      "emoji": "🐢",
+      "aliases": ["slow", "gradual", "sluggish", "delayed"]
+    },
+    "record": {
+      "emoji": "🏔️🔝",
+      "aliases": ["record", "record-breaking", "all-time high", "unprecedented"]
+    },
+    "first": {
+      "emoji": "1️⃣🆕",
+      "aliases": ["first", "first-ever", "inaugural", "debut"]
+    },
+    "secret": {
+      "emoji": "🤫",
+      "aliases": ["secret", "covert", "leaked", "behind closed doors", "undisclosed"]
+    },
+    "illegal": {
+      "emoji": "🚫📜",
+      "aliases": ["illegal", "unlawful", "banned", "criminal (adj)"]
+    },
+    "emergency": {
+      "emoji": "🆘",
+      "aliases": ["emergency", "crisis", "urgent", "critical"]
+    },
+    "positive": {
+      "emoji": "😊",
+      "aliases": ["positive", "good news", "welcome", "encouraging"]
+    },
+    "negative": {
+      "emoji": "😟",
+      "aliases": ["negative", "bad news", "worrying", "concerning"]
+    },
+    "safe": {
+      "emoji": "🛡️",
+      "aliases": ["safe", "secure", "protected", "safety"]
+    },
+    "dangerous": {
+      "emoji": "☠️⚠️",
+      "aliases": ["dangerous", "hazardous", "risky", "unsafe", "threat"]
+    }
+  },
+  "compounds": {
+    "government_minister": {
+      "sequence": ["government", "minister"],
+      "render": "🧩🏛️👔🧩"
+    },
+    "prime_minister": {
+      "sequence": ["government", "leader"],
+      "render": "🧩🏛️👤⭐🧩",
+      "aliases": ["prime minister", "pm", "downing street", "number 10"]
+    },
+    "chancellor": {
+      "sequence": ["government", "minister", "money"],
+      "render": "🧩🏛️👔💷🧩",
+      "aliases": ["chancellor", "chancellor of the exchequer", "treasury"]
+    },
+    "home_secretary": {
+      "sequence": ["government", "minister", "police"],
+      "render": "🧩🏛️👔🚔🧩",
+      "aliases": ["home secretary", "home office"]
+    },
+    "foreign_secretary": {
+      "sequence": ["government", "minister", "world"],
+      "render": "🧩🏛️👔🌍🧩",
+      "aliases": ["foreign secretary", "foreign office", "fcdo"]
+    },
+    "defence_secretary": {
+      "sequence": ["government", "minister", "military"],
+      "render": "🧩🏛️👔🪖🧩",
+      "aliases": ["defence secretary", "ministry of defence", "mod"]
+    },
+    "health_minister": {
+      "sequence": ["government", "minister", "health"],
+      "render": "🧩🏛️👔🏥🧩",
+      "aliases": ["health secretary", "health minister"]
+    },
+    "education_secretary": {
+      "sequence": ["government", "minister", "education"],
+      "render": "🧩🏛️👔📖🧩",
+      "aliases": ["education secretary", "schools minister"]
+    },
+    "department_of_health": {
+      "sequence": ["government", "health"],
+      "render": "🧩🏛️🏥🧩",
+      "aliases": ["department of health", "dhsc"]
+    },
+    "department_of_education": {
+      "sequence": ["government", "education"],
+      "render": "🧩🏛️📖🧩",
+      "aliases": ["department for education", "dfe"]
+    },
+    "nhs": {
+      "sequence": ["health", "public", "country"],
+      "render": "🧩🏥👥🗺️🧩",
+      "aliases": ["nhs", "national health service"]
+    },
+    "parliament": {
+      "sequence": ["government", "debate"],
+      "render": "🧩🏛️🗣️↔️🗣️🧩",
+      "aliases": ["parliament", "commons", "house of commons", "house of lords", "westminster"]
+    },
+    "local_council": {
+      "sequence": ["city", "government"],
+      "render": "🧩🌆🏛️🧩",
+      "aliases": ["council", "local authority", "town hall"]
+    },
+    "general_election": {
+      "sequence": ["country", "election"],
+      "render": "🧩🗺️🗳️🧩",
+      "aliases": ["general election", "national vote"]
+    },
+    "opposition": {
+      "sequence": ["political_party", "reject"],
+      "render": "🧩🎌🏛️❌🧩",
+      "aliases": ["opposition", "shadow cabinet", "opposition leader"]
+    },
+    "central_bank": {
+      "sequence": ["bank", "country"],
+      "render": "🧩🏦🗺️🧩",
+      "aliases": ["bank of england", "central bank", "boe"]
+    },
+    "interest_rates": {
+      "sequence": ["bank", "money", "tax"],
+      "render": "🧩🏦💷🧾🧩",
+      "aliases": ["interest rates", "base rate", "borrowing costs"]
+    },
+    "budget_statement": {
+      "sequence": ["government", "money", "announce"],
+      "render": "🧩🏛️💷📢🧩",
+      "aliases": ["budget", "autumn statement", "spring statement", "fiscal event"]
+    },
+    "cost_of_living": {
+      "sequence": ["public", "money", "inflation"],
+      "render": "🧩👥💷🎈💷🧩",
+      "aliases": ["cost of living", "cost of living crisis", "household budgets"]
+    },
+    "care_home": {
+      "sequence": ["social_care", "housing", "elderly"],
+      "render": "🧩🤲🏠🏘️👴🧩",
+      "aliases": ["care home", "nursing home", "residential care"]
+    },
+    "home_care": {
+      "sequence": ["social_care", "carers", "housing"],
+      "render": "🧩🤲🏠🤲👤🏘️🧩",
+      "aliases": ["home care", "homecare", "domiciliary care", "care at home"]
+    },
+    "care_regulator": {
+      "sequence": ["government", "inspect", "health", "social_care"],
+      "render": "🧩🏛️🔍📋🏥🤲🏠🧩",
+      "aliases": ["cqc", "care quality commission", "care regulator", "care inspectorate"]
+    },
+    "hospital_waiting_lists": {
+      "sequence": ["health", "public", "delay"],
+      "render": "🧩🏥👥🕐⏸️🧩",
+      "aliases": ["waiting lists", "nhs backlog", "waiting times", "elective backlog"]
+    },
+    "ambulance_service": {
+      "sequence": ["health", "rescue", "transport"],
+      "render": "🧩🏥🛟🚆🧩",
+      "aliases": ["ambulance", "ambulance service", "paramedics", "999 response"]
+    },
+    "gp_surgery": {
+      "sequence": ["doctors", "city", "health"],
+      "render": "🧩🩺🌆🏥🧩",
+      "aliases": ["gp surgery", "gp practice", "family doctor", "primary care"]
+    },
+    "police_officer": {
+      "sequence": ["police", "person"],
+      "render": "🧩🚔👤🧩",
+      "aliases": ["police officer", "constable", "pc", "detective"]
+    },
+    "supreme_court": {
+      "sequence": ["court", "country", "leader"],
+      "render": "🧩⚖️🗺️👤⭐🧩",
+      "aliases": ["supreme court", "highest court", "court of appeal"]
+    },
+    "public_inquiry": {
+      "sequence": ["government", "investigate", "public"],
+      "render": "🧩🏛️🔍👥🧩",
+      "aliases": ["public inquiry", "statutory inquiry", "independent inquiry"]
+    },
+    "cyber_attack": {
+      "sequence": ["technology", "attack"],
+      "render": "🧩💻💥🧩",
+      "aliases": ["cyber attack", "hack", "ransomware", "data breach"]
+    },
+    "social_media_platform": {
+      "sequence": ["internet", "public", "company"],
+      "render": "🧩🌐👥🏢🧩",
+      "aliases": ["social media platform", "facebook", "x", "tiktok", "instagram"]
+    },
+    "energy_bills": {
+      "sequence": ["energy", "money", "public"],
+      "render": "🧩⚡💷👥🧩",
+      "aliases": ["energy bills", "gas bills", "electricity bills", "price cap"]
+    },
+    "rail_strike": {
+      "sequence": ["transport", "workers", "strike"],
+      "render": "🧩🚆👷✊🛑🧩",
+      "aliases": ["rail strike", "train strike", "tube strike"]
+    },
+    "nhs_strike": {
+      "sequence": ["health", "workers", "strike"],
+      "render": "🧩🏥👷✊🛑🧩",
+      "aliases": ["nhs strike", "doctors strike", "nurses strike", "junior doctors"]
+    },
+    "world_cup": {
+      "sequence": ["world", "sport", "olympics"],
+      "render": "🧩🌍⚽🏅🧩",
+      "aliases": ["world cup", "fifa world cup"]
+    },
+    "peace_talks": {
+      "sequence": ["peace", "meet"],
+      "render": "🧩🕊️🤝🧩",
+      "aliases": ["peace talks", "ceasefire negotiations", "peace summit"]
+    },
+    "war_crime": {
+      "sequence": ["war", "crime"],
+      "render": "🧩⚔️🦹🧩",
+      "aliases": ["war crime", "atrocity", "crimes against humanity"]
+    },
+    "asylum_seeker": {
+      "sequence": ["migration", "person", "help"],
+      "render": "🧩🧳🌍👤🤲🧩",
+      "aliases": ["asylum seeker", "refugee", "person seeking asylum"]
+    },
+    "housing_crisis": {
+      "sequence": ["housing", "emergency"],
+      "render": "🧩🏘️🆘🧩",
+      "aliases": ["housing crisis", "housing shortage", "homelessness crisis"]
+    },
+    "food_bank": {
+      "sequence": ["food", "charity", "public"],
+      "render": "🧩🍞🎗️👥🧩",
+      "aliases": ["food bank", "food parcels", "emergency food"]
+    },
+    "climate_summit": {
+      "sequence": ["climate", "world", "meet"],
+      "render": "🧩🌍🔥🌍🤝🧩",
+      "aliases": ["climate summit", "cop", "climate conference"]
+    }
+  },
+  "examples": [
+    {
+      "english": "The health secretary announced new funding for the NHS.",
+      "emoji": "🧩🏛️👔🏥🧩 ⏪📢 🆕 💷➡️ 🧩🏥👥🗺️🧩",
+      "notes": "Compound subject, past-tense announce, 'new' marker, fund action, compound object."
+    },
+    {
+      "english": "Rail workers will strike next week over pay.",
+      "emoji": "🧩🚆👷✊🛑🧩 ⏩ 🕐 🔗 💷",
+      "notes": "Rail strike compound, future tense, time marker, cause link to money."
+    },
+    {
+      "english": "Police arrested a suspect after the fire; the cause is unknown.",
+      "emoji": "🚔 ⏪🚔✋ 👤❓ 🕐⤵️ 🔥 ▪️ 🔗❓",
+      "notes": "Past-tense arrest, suspect glyph, result/time linkage, uncertainty over cause."
+    },
+    {
+      "english": "The care regulator warned that home care funding cuts are dangerous for elderly people.",
+      "emoji": "🧩🏛️🔍📋🏥🤲🏠🧩 ⚠️🗣️ 🧩🤲🏠🤲👤🏘️🧩 💷✂️ ☠️⚠️ ➡️ 👴🔁",
+      "notes": "CQC compound, warn action, home-care compound, funding-cut, dangerous modifier, directed at plural elderly."
+    }
+  ]
+}
